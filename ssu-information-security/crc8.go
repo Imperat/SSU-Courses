@@ -7,6 +7,8 @@ import (
 )
 
 func main() {
+	// Array helper
+	numbers := [8]byte{ 1, 2, 4, 8, 16, 32, 64, 128 }
 	// Polynom
 	var poly byte = 0xD5
     // Open file for reading
@@ -15,12 +17,26 @@ func main() {
         log.Fatal(err)
     }
 
+    b_init := make([]byte, 1)
+    file.Read(b_init)
+    
+    b_init[0] = b_init[0] ^ poly
+    b_init[0] = b_init[0] << 1
+
     for true {
         b := make([]byte, 1)
         _, err := file.Read(b)
         if err != nil {
-        	break
+            fmt.Printf("CRC8 code is %n \n", b_init)
+            break
         }
-        fmt.Printf("Read byte: %d \n", int(b[0]))
+        for i := 0; i < 8; i++ {
+            is_one := b[0] ^ numbers[i]
+            if is_one == 1 {
+            	b_init[0] = b_init[0] + 1
+            	b_init[0] = b_init[0] ^ poly
+            	b_init[0] = b_init[0] << 1
+            }
+        }
     }
 }
