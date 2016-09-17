@@ -21,6 +21,7 @@ func main() {
     file.Read(b_init)
 	log.Printf("%n", b_init[0])
     b_init[0] = b_init[0] ^ poly
+	log.Printf("Before sdvig: %n \n", b_init[0])
     b_init[0] = b_init[0] << 1
     for true {
         b := make([]byte, 1)
@@ -35,10 +36,11 @@ func main() {
         }
         for i := 0; i < 8; i++ {
             is_one := b[0] & numbers[i]
-            if is_one == 1 {
+            if is_one > 0 {
             	b_init[0] = b_init[0] + 1
 			}
             b_init[0] = b_init[0] ^ poly
+			fmt.Printf("Before sdvig: %n \n", b_init[0])
             b_init[0] = b_init[0] << 1
         }
     }
