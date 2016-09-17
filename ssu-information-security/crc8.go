@@ -12,6 +12,7 @@ func main() {
 	// Polynom
 	var poly byte = 0xD5
 	var r byte = 0
+	var t byte = 0
     // Open file for reading
     file, err := os.Open("input.txt")
     if err != nil {
@@ -21,20 +22,18 @@ func main() {
     b_init := make([]byte, 1)
     file.Read(b_init)
     b_init[0] = b_init[0] ^ poly
-	fmt.Printf("%n \n", b_init[0])
     b_init[0] = b_init[0] << 1
     for true {
         b := make([]byte, 1)
         _, err := file.Read(b)
         if err != nil {
-			for i := 0; i < 8; i++ {
-			   b_init[0] = b_init[0] << 1
-			   b_init[0] = b_init[0] ^ poly
-			}
+			b_init[0] = b_init[0] >> 1
+			b_init[0] = b_init[0] | t
+			b_init[0] = b_init[0] ^ poly
+			fmt.Printf("CRC8 Code is %s", b_init[0])
             break
         }
         for i := 0; i < 8; i++ {
-			//b_init[0] = b_init[0] << 1
             is_one := b[0] & numbers[i]
             if is_one > 0 {
             	b_init[0] = b_init[0] + 1
@@ -44,7 +43,8 @@ func main() {
 			if r == 1 {
                 b_init[0] = b_init[0] ^ poly
 			}
-			fmt.Printf("%n \n", b_init[0])
+			// Not turn if it at the end!
+			t = b_init[0] & 128
 			b_init[0] = b_init[0] << 1
         }
     }
