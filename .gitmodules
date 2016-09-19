@@ -1,0 +1,6 @@
+[submodule "SSU-Coursework-2015/DirectX-CourseWork-2015"]
+	path = SSU-Coursework-2015/DirectX-CourseWork-2015
+	url = git://github.com/Imperat/DirectX-CourseWork-2015.git
+[submodule "SSU-Coursework-2016/DirectX-CourseWork-2016"]
+	path = SSU-Coursework-2016/DirectX-CourseWork-2016
+	url = git://github.com/Imperat/DirectX-CourseWork-2016.git
