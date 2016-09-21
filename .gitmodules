@@ -1,0 +1,9 @@
+[submodule "ssu-databases/SQL-chempic"]
+	path = ssu-databases/SQL-chempic
+	url = git://github.com/Imperat/SQL-chempic
+[submodule "ssu-course-work-2015/DirectX-CourseWork-2015"]
+	path = ssu-course-work-2015/DirectX-CourseWork-2015
+	url = git://github.com/Imperat/DirectX-CourseWork-2015
+[submodule "ssu-course-work-2016/DirectX-CourseWork-2016"]
+	path = ssu-course-work-2016/DirectX-CourseWork-2016
+	url = git://github.com/Imperat/DirectX-CourseWork-2016
