@@ -1,11 +1,15 @@
 import sqlite3
 import os
 import hashlib
-import sys
+
+from encryptor import Encryptor
+from my_exceptions import *
+
 
 class Manager(object):
     def __init__(self):
         self.user = None
+        self.encryptor = Encryptor()
 
     def register_user(self, username, password):
         con = sqlite3.connect('users.db')
@@ -13,15 +17,16 @@ class Manager(object):
         users = cur.execute('SELECT * FROM users')
         for user in users:
             if username == user[1]:
-                raise Exception
-        cur.execute('INSERT INTO USERS VALUES(null, %s, %s)' % (
-            username, hashlib.sha256(password)))
+                raise UserAlreadyExists
+        cur.execute('INSERT INTO USERS VALUES(null, ?, ?)',
+                    [username, sqlite3.Binary(hashlib.sha256(password).digest())])
+        con.commit()
         con.close()
         os.system("mkdir '.%s'" % username)
         self.user = username
 
     def logout(self):
-        Encryptor.encript(".%s" % username)
+        self.encryptor.encrypt(".%s" % self.user)
         self.user = None
 
     def login(self, username, password):
@@ -32,12 +37,12 @@ class Manager(object):
         for user in users:
             if username == user[1]:
                 find = True
-                if hashlib.sha256(password) == user[2]:
+                if hashlib.sha256(password).digest() == bytes(user[2]):
                     self.user = username
-                    Encryptor.dencript(".%s" % username)
+                    self.encryptor.decrypt(".%s" % username)
                 else:
-                    raise Exception # Wrong Password
-        if not Find:
-            raise Exception # User doesn't exists
+                    raise WrongPasswordException # Wrong Password
+        if not find:
+            raise UserDoesntExists # User doesn't exists
 
 
