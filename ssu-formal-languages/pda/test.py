@@ -1,31 +1,59 @@
 import pda
 import string_perserver as s_p
 
-input_alphabet = {'a', 'b', 'c'}
+import unittest
 
-states = {'s1', 's2', 's3'}
 
-rules = {
-	's1': {'a': 's1', 'b': 's2', 'c': 's3'},
-	's2': {'a': 's2', 'b': 's2', 'c': 's3'},
-	's3': {'a': 's2', 'b': 's1', 'c': 's3'}
-}
+class TestHelper(object):
+    @staticmethod
+    def get_test_pda():
+        input_alphabet = {'a', 'b', 'c'}
 
-initial_state = 's1'
-terminate_state = 's3'
+        states = {'s1', 's2', 's3'}
+        
+        rules = {
+            's1': {'a': 's1', 'b': 's2', 'c': 's3'},
+            's2': {'a': 's2', 'b': 's2', 'c': 's3'},
+            's3': {'a': 's2', 'b': 's1', 'c': 's3'}
+        }
+        
+        initial_state = 's1'
+        terminate_state = 's3'
+        
+        my_pda = pda.PDA(rules, input_alphabet, states,
+                         initial_state, terminate_state)
 
-my_pda = pda.PDA(rules, input_alphabet, states,
-                 initial_state, terminate_state)
+        return my_pda
 
-'''print my_pda.state
 
-my_pda.input('a')
+class TestPDA(unittest.TestCase):
+    def test_PDA(self):
+        my_pda = TestHelper.get_test_pda()
+        self.assertEqual(my_pda.state, 's1')
 
-print my_pda.state
+        my_pda.input('a')
+        self.assertEqual(my_pda.state, 's1')
 
-my_pda.input('c')
+        my_pda.input('c')
+        self.assertEqual(my_pda.state, 's3')
 
-print my_pda.state
-print my_pda.in_terminate_state()'''
+        my_pda.input('a')
+        self.assertEqual(my_pda.state, 's2')
 
-print s_p.perserve_string('aaabbacabc', my_pda, 0)
+        my_pda.input('c')
+        self.assertEqual(my_pda.state, 's3')
+        self.assertTrue(my_pda.in_terminate_state())
+
+
+class TestStringPerserver(unittest.TestCase):
+    def test_string_perserver(self):
+        my_pda = TestHelper.get_test_pda()
+        res = s_p.perserve_string('aaabbacabc', my_pda, 0)
+        self.assertEqual(res, (True, 9))
+
+        my_pda = TestHelper.get_test_pda()
+        res = s_p.perserve_string('aaabbacabc', my_pda, 3)
+        self.assertEqual(res, (True, 9))
+
+if __name__ == '__main__':
+    unittest.main()
