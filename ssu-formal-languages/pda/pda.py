@@ -15,6 +15,7 @@ class PDA(object):
         self.crash = True
 
     def input(self, symbol):
+        # print symbol + "- - " + self.state
         try:
             if self.crash:
                 raise e.PDACrashException(
