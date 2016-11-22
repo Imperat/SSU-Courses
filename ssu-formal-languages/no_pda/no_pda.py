@@ -24,11 +24,22 @@ class NOPDA(object):
                 '''
                 TODO Need add checkers for UnknowSymbols Exception
                 '''
-                new_states.add(self.rules[self.state][symbol])
+                new_states.extend(self.rules[self.state][symbol])
             except Exception as e:
                 pass
         if not new_states:
             self._crash()
+        else:
+            self.current_state = new_states
 
     def in_terminate_state(self):
         self.current_states & self.terminate_states
+
+
+'''
+input_alphabet = {'a', 'b', 'c'}
+
+        states = {'s1', 's2', 's3'}
+        
+        rules = {'s1': {'a': ['s1'], 'b': ['s2'], 'c': ['s3']}, 's2': {'a': ['s2'], 'b': ['s2'], 'c': ['s3', 's1']}, 's3': {'a': ['s2'], 'b': ['s1'], 'c': ['s3']}}
+'''

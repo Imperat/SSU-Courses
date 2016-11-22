@@ -13,5 +13,6 @@ def perserve_string(string, pda, n):
                 terminate_position = n + i
         except e.UnknownSymbolException:
             return word_is_admit, terminate_position
+        except Exception:
+            return word_is_admit, terminate_position
     return word_is_admit, terminate_position
-
