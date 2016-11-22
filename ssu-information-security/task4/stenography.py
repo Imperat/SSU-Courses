@@ -1,7 +1,6 @@
 import argparse
 
 class BitReader(object):
-
     def __init__(self, filename):
         self.filename = filename
         self.content = None
@@ -42,7 +41,6 @@ class StenographyWriter(object):
         bit = self.bit_reader.read_bit()
         with open(self.filename, 'r') as f:
             content = f.read()
-            f.close()
         spaces = []
         for i, c in enumerate(content):
             if c == ' ':
@@ -65,11 +63,9 @@ class StenographyWriter(object):
             f.close()
 
 
-
     def read_message(self):
         with open(self.filename, 'r') as f:
             content = f.read()
-            f.close()
         bits = []
         leng = len(content)
         indx = 0
@@ -89,7 +85,7 @@ class StenographyWriter(object):
             current_byte = res[beginning:beginning+offset]
             lbytes.append(current_byte)
             beginning += 8
-        
+
         symbols = []
         for i in lbytes:
             if int(i, 2) == 0:
@@ -106,7 +102,7 @@ if __name__ == '__main__':
                         help="Destination file for save message")
     parser.add_argument("-m", "--message",
                         help="File with secret message")
-    
+
     args = parser.parse_args()
 
     command = args.command
@@ -119,7 +115,7 @@ if __name__ == '__main__':
         stenography = StenographyWriter(args.destination,
                                         bit_reader=bit_reader)
         stenography.write_message()
-    
+
     if command == 'read':
         bit_reader = BitReader(args.message)
         stenography = StenographyWriter(args.destination,
