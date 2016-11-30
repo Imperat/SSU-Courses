@@ -1,0 +1,13 @@
+#lang racket
+
+;Сколько раз повторяется данный атом в списке
+(define (whatcount L atom count)
+  (if (not (null? (cdr L)))
+    (if (= (car L) atom) 
+      (whatcount (cdr L) atom (+ count 1)) 
+      (whatcount (cdr L) atom count))
+    (if (= (car L) atom)
+        (+ count 1)
+        count)))
+
+(whatcount '(1 1 3 4 1) 1 0)
