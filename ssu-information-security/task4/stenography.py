@@ -41,6 +41,7 @@ class StenographyWriter(object):
         bit = self.bit_reader.read_bit()
         with open(self.filename, 'r') as f:
             content = f.read()
+            content = ' '.join(list(filter(lambda x: True if x else False, content.split(' '))))
         spaces = []
         for i, c in enumerate(content):
             if c == ' ':
@@ -89,7 +90,8 @@ class StenographyWriter(object):
         symbols = []
         for i in lbytes:
             if int(i, 2) == 0:
-                break
+                #break
+                pass
             symbols.append(chr(int(i, 2)))
         return "".join(symbols)
 
