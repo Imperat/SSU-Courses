@@ -88,33 +88,37 @@ def generate_start_authos():
     authos.extend(lst_pda_C)
     return authos
 
-with open('programms/pr-1.programm') as f:
-    program = f.read()
-    current_position = 0
-    metas = []
-    while True:
-        start_position = current_position
-        leng, prior, meta = 0, 0, ''
-        for auto in generate_start_authos():
-            res = perserve_string(program, auto, start_position), auto.meta
-            # print res, auto.meta
-            if res[0][0]:
-                #if auto.prior >= prior
-                if res[0][1] + 1 > current_position:
-                    prior = auto.prior
-                    meta = Token(auto.meta,
-                                 program[start_position:1 + res[0][1]])
-                    current_position = res[0][1] + 1
-                elif res[0][1] + 1 == current_position:
-                    if auto.prior > prior:
+
+def main():
+    with open('programms/pr-1.programm') as f:
+        program = f.read()
+        current_position = 0
+        metas = []
+        while True:
+            start_position = current_position
+            leng, prior, meta = 0, 0, ''
+            for auto in generate_start_authos():
+                res = perserve_string(program, auto, start_position), auto.meta
+                # print res, auto.meta
+                if res[0][0]:
+                    #if auto.prior >= prior
+                    if res[0][1] + 1 > current_position:
                         prior = auto.prior
                         meta = Token(auto.meta,
                                      program[start_position:1 + res[0][1]])
-        if start_position == current_position:
-            break
-        metas.append(meta)
+                        current_position = res[0][1] + 1
+                    elif res[0][1] + 1 == current_position:
+                        if auto.prior > prior:
+                            prior = auto.prior
+                            meta = Token(auto.meta,
+                                         program[start_position:1 + res[0][1]])
+            if start_position == current_position:
+                break
+            metas.append(meta)
+        return metas
 
-    for meta in metas:
+if __name__ == "__main__":
+    for meta in main():
         meta.print_token()
 
     # Check word perservers!!!

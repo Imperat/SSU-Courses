@@ -19,6 +19,9 @@ def generate_pda_for_word(word, meta=None, prior=None):
 
 
 class Token(object):
+    """ Token is object that needed for processing
+    syntax analys of language """
+
     def __init__(self, token_type, content=None):
         self.token_type = token_type
         self.content = content
