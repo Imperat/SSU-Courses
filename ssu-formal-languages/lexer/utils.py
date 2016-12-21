@@ -30,8 +30,22 @@ class Token(object):
         token_type = self.token_type + " " * (13 - len(self.token_type))
         if self.token_type == 'whitespace':
             self.content = " "
-        colors = {"keyword": "red", id: "white", "bool": "blue"}
+        colors = {"keyword": "red", "bool": "blue"}
         color = colors.get(self.token_type, "white")
         if self.content:
             print colored("%s <%s>" % (token_type, self.content),
                           color)
+
+    def __eq__(self, other):
+        if other is not None:
+            return self.token_type == other.token_type
+        return False
+
+    def __str__(self):
+        return "%s" % (self.token_type)
+
+    def __repr__(self):
+        return self.__str__()
+
+    def postfix(self, s):
+        self.token_type += s

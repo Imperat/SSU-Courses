@@ -4,12 +4,12 @@ sys.path.insert(0, '/home/imperat/SSU-Courses/ssu-formal-languages')
 from pda.string_perserver import perserve_string
 from pda.pda import PDA
 
-from lexer.data import float_data
-from lexer.data import int_data
-from lexer.data import ws_data
-from lexer.data import id_data
-from lexer.utils import generate_pda_for_word
-from lexer.utils import Token
+from data import float_data
+from data import int_data
+from data import ws_data
+from data import id_data
+from utils import generate_pda_for_word
+from utils import Token
 
 
 def generate_start_authos():
@@ -90,7 +90,7 @@ def generate_start_authos():
 
 
 def main():
-    with open('programms/pr-1.programm') as f:
+    with open('/home/imperat/SSU-Courses/ssu-formal-languages/lexer/programms/pr-1.programm') as f:
         program = f.read()
         current_position = 0
         metas = []
