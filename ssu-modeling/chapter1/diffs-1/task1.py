@@ -16,9 +16,9 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    P = int(args.concentration) if args.concentration is not None else DEF_P
-    x0 = int(args.init) if args.init is not None else DEF_X0
-    h = int(args.step) if args.step is not None else DEF_ST
+    P = float(args.concentration) if args.concentration is not None else DEF_P
+    x0 = float(args.init) if args.init is not None else DEF_X0
+    h = float(args.step) if args.step is not None else DEF_ST
 
     x_axis, y_axis = range(10000), [x0]
     for i in range(9999):
