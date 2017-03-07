@@ -7,6 +7,7 @@
          (student BelokobylskySA 2)
 )
 
+(reset)
 (facts)
 
 (retract 2)
@@ -24,7 +25,7 @@
           (train 33 Kazan 22)
 )
 
-
+(reset)
 (assert (train 44 Samara 10))
 (assert (train 55 Volgograd 08))
 
@@ -43,6 +44,7 @@
         (sotrudnik PushkinAS 3)
 )
 
+(reset)
 (retract 1)
 
 (retract 3)
@@ -56,6 +58,7 @@
 		(Liberty USA 1000 99)
 )
 
+(reset)
 (facts)
 
 (retract 2)
