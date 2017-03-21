@@ -12,3 +12,10 @@
         )
     )
     ?str)
+
+(defrule substr_delete
+=>
+(bind ?str (read))
+(bind ?substr (read))
+(bind ?str (str-del ?substr ?str))
+(printout t "str=" ?str crlf))
