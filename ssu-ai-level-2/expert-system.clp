@@ -15,3 +15,8 @@
 
     ?answer
 )
+
+(deffunction yes-or-no-p (?question)
+    (bind ?response (ask-question ?question yes no у n))
+    (or (eq ?response yes) (eq ?response y))
+)
